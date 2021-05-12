@@ -101,6 +101,12 @@ public class View {
         progressWindow.setLocationRelativeTo(frame);
         progressWindow.setOpacity(0.5f);
         progressWindow.setAlwaysOnTop(true);
+        progressWindow.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                progressWindow.setShape(new Ellipse2D.Double(0, 0, progressWindow.getWidth(), progressWindow.getHeight()));
+            }
+        });
         
         Timer progressTimer = new Timer(1000, new ActionListener() {
             @Override
@@ -156,7 +162,7 @@ public class View {
         });
 
         JSpinner delaySpinner = new JSpinner(new SpinnerNumberModel(0, 0, 10, 1));
-        delaySpinner.setToolTipText("Delay after button press to take photo\n(in seconds)");
+        delaySpinner.setToolTipText("Timer (in seconds)");
         delaySpinner.setValue(0);
         delaySpinner.addChangeListener(e -> {
             delay = (int) delaySpinner.getValue();
